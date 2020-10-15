@@ -1,16 +1,35 @@
 import {Router} from 'express';
-import CreateOrphanageService from "@modules/Orphanages/services/CreateOrphanageService";
+import {getCustomRepository} from 'typeorm';
+import OrphanagesController from '@modules/Orphanages/infra/controllers/OrphanageController';
+
+import OrphanagesRepository from '../../typeorm/repositories/OrphanagesRepository';
 
 const orphanagesRouter = Router();
 
-orphanagesRouter.post("/", async (request, response) =>{
-    const {name, latitude, longitude, about, instructions, opening_hours, open_on_weekends} = request.body;
+orphanagesRouter.get("/", async(request, response)=>{
+    const orphanagesRepository = getCustomRepository(OrphanagesRepository);
 
-    const orphanageService = new CreateOrphanageService();
+    const orphanages = await orphanagesRepository.index();
 
-    const orphanage = await  orphanageService.execute({name, latitude, longitude, about, instructions, opening_hours, open_on_weekends});
+    return response.json(orphanages);
 
-    return response.json({OrphanageCreated: orphanage});
 })
+
+orphanagesRouter.get("/:id", async(request, response)=>{
+    try{
+        const {id} = request.params;
+
+        const orphanagesRepository = getCustomRepository(OrphanagesRepository);
+
+        const orphanages = await orphanagesRepository.show(parseInt(id));
+
+        return response.json(orphanages);
+    }catch(err){
+        return response.status(400).json({message: err.message});
+    }
+
+})
+
+orphanagesRouter.post("/", OrphanagesController.create)
 
 export default orphanagesRouter;

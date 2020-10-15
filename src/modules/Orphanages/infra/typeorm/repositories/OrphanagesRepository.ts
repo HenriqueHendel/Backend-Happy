@@ -18,6 +18,22 @@ class OrphanagesRepository implements IOrphanagesRepository {
 
         return orphanage;
     }
+
+    public async index() {
+        const orphanages = await this.ormRepository.find();
+
+        return orphanages;
+    }
+
+    public async show(id: number){
+        const orphanage = await this.ormRepository.findOne({where:{id}});
+
+        if(orphanage){
+            return orphanage;
+        }else {
+            throw new Error("There is not a orphanage with this id");
+        }
+    }
 }
 
 export default OrphanagesRepository;
