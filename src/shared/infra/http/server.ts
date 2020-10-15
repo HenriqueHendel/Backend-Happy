@@ -1,7 +1,7 @@
 import express from 'express';
 import Routes from './routes';
 
-import "./database/connection";
+import "../typeorm/connection";
 
 const app = express();
 

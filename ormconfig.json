@@ -2,9 +2,12 @@
     "type":"sqlite",
     "database":"./src/database/database.sqlite",
     "migrations":[
-        "./src/database/migrations/*.ts"
+        "./src/shared/infra/typeorm/migrations/*.ts"
+    ],
+    "entities":[
+        "./src/modules/Orphanages/infra/typeorm/entities/*.ts"
     ],
     "cli":{
-        "migrationsDir":"./src/database/migrations"
+        "migrationsDir":"./src/shared/infra/typeorm/migrations"
     }
 }

@@ -9,7 +9,7 @@ class Orphanage {
     name: string;
 
     @Column('decimal')
-    latidude: number;
+    latitude: number;
 
     @Column('decimal')
     longitude: number;
