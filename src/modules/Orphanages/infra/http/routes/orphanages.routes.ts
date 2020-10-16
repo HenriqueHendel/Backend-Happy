@@ -2,9 +2,14 @@ import {Router} from 'express';
 import {getCustomRepository} from 'typeorm';
 import OrphanagesController from '@modules/Orphanages/infra/controllers/OrphanageController';
 
+import multer from 'multer';
+import multerConfig from '@modules/Orphanages/infra/config/upload';
+
 import OrphanagesRepository from '../../typeorm/repositories/OrphanagesRepository';
 
 const orphanagesRouter = Router();
+
+const upload = multer(multerConfig);
 
 orphanagesRouter.get("/", async(request, response)=>{
     const orphanagesRepository = getCustomRepository(OrphanagesRepository);
@@ -30,6 +35,6 @@ orphanagesRouter.get("/:id", async(request, response)=>{
 
 })
 
-orphanagesRouter.post("/", OrphanagesController.create)
+orphanagesRouter.post("/", upload.array('file'), OrphanagesController.create)
 
 export default orphanagesRouter;

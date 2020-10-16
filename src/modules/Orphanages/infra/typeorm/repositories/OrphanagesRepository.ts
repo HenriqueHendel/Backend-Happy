@@ -12,8 +12,8 @@ class OrphanagesRepository implements IOrphanagesRepository {
         this.ormRepository = getRepository(Orphanage);
     }
 
-    public async create({name, latitude, longitude, about, instructions, opening_hours, open_on_weekends}: ICreateOrphanageDTO){
-        const orphanage = this.ormRepository.create({name, latitude, longitude, about, instructions, opening_hours, open_on_weekends});
+    public async create({name, latitude, longitude, about, instructions, opening_hours, open_on_weekends, images}: ICreateOrphanageDTO){
+        const orphanage = this.ormRepository.create({name, latitude, longitude, about, instructions, opening_hours, open_on_weekends, images});
         await this.ormRepository.save(orphanage);
 
         return orphanage;

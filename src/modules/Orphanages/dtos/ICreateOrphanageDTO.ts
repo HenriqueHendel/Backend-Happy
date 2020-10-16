@@ -1,3 +1,7 @@
+interface Image {
+    path: string;
+}
+
 interface ICreateOrphanageDTO {
     name: string;
 
@@ -11,7 +15,9 @@ interface ICreateOrphanageDTO {
 
     opening_hours: string;
 
-    open_on_weekends: boolean
+    open_on_weekends: boolean;
+
+    images: Image[];
 }  
 
 export default ICreateOrphanageDTO;
