@@ -20,13 +20,17 @@ class OrphanagesRepository implements IOrphanagesRepository {
     }
 
     public async index() {
-        const orphanages = await this.ormRepository.find();
+        const orphanages = await this.ormRepository.find({
+            relations: ['images']
+        });
 
         return orphanages;
     }
 
     public async show(id: number){
-        const orphanage = await this.ormRepository.findOne({where:{id}});
+        const orphanage = await this.ormRepository.findOne(id, {
+            relations: ['images']
+        });
 
         if(orphanage){
             return orphanage;
