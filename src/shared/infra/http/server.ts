@@ -1,6 +1,7 @@
 import express from 'express';
 import Routes from './routes';
 import path from 'path';
+import cors from 'cors';
 import ErrorHandler from '@shared/errors/handler';
 import 'express-async-errors';
 
@@ -8,6 +9,7 @@ import "../typeorm/connection";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(Routes);
 app.use("/upload", express.static(path.join(__dirname, "..","..","..", "upload")));
